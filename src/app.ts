@@ -10,9 +10,8 @@ import Vehicles from "./models/vehicle.model"
 import Verification from "./models/verifications.model"
 import * as AdminJSMongoose from '@adminjs/mongoose'
 import AdminJSExpress from '@adminjs/express'
-import express from 'express'
-import Connect from 'connect-pg-simple'
-import session from 'express-session'
+const express = require('express')
+
 
 AdminJS.registerAdapter({
   Resource: AdminJSMongoose.Resource,
