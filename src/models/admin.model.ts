@@ -38,6 +38,8 @@ export interface IAdmin extends Document {
         minimunFare: number;
         perDestination: number;
       };
+      email: string,
+      password: string
     };
   };
 }
@@ -179,6 +181,14 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 500,
         },
+        email: {
+          type: String,
+          required: true,
+        },
+        password: {
+          type: String,
+          required: true,
+        }
       },
     },
   },
