@@ -23,8 +23,8 @@ mongoose.set('strictQuery', false);
 const PORT = 3000
 
 const DEFAULT_ADMIN = {
-  email: 'admin@example.com',
-  password: 'password',
+  email: Admin.findOne({email: req.body.email}),
+  password: Admin.findOne({password: req.body.password})
 }
 
 const authenticate = async (email: string, password: string) => {
@@ -33,6 +33,8 @@ const authenticate = async (email: string, password: string) => {
   }
   return null
 }
+
+
 
 const start = async () => {
   const app = express()
