@@ -1,6 +1,8 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface IAdmin extends Document {
+  email: string;
+  password: string;
   rates: {
     intraState: {
       bikes: {
@@ -38,13 +40,20 @@ export interface IAdmin extends Document {
         minimunFare: number;
         perDestination: number;
       };
-      email: string,
-      password: string
+      
     };
   };
 }
 
 const RatesSchema = new Schema<IAdmin>({
+  email: {
+      type: String,
+      required: true,
+  },
+  password: {
+     type: String,
+    required: true,
+    },
   rates: {
     intraState: {
       bike: {
@@ -181,16 +190,9 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 500,
         },
-        email: {
-          type: String,
-          required: true,
-        },
-        password: {
-          type: String,
-          required: true,
-        }
       },
     },
+
   },
 });
 
