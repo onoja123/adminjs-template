@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --config nodemon.json src/app.ts",
-  "build": "rimraf ./build && tsc",
-},
+    "build": "rimraf ./build && tsc"
+  },
   "dependencies": {
     "@adminjs/express": "^5.1.0",
     "@adminjs/mongoose": "^3.0.1",

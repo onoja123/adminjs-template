@@ -43,9 +43,9 @@ export interface IAdmin extends Document {
 }
 
 const RatesSchema = new Schema<IAdmin>({
-  rates: {
-    intraState: {
-      bike: {
+  rates: new Schema({
+    intraState: new Schema({
+      bike: new Schema({
         baseFare: {
           type: Number,
           required: true,
@@ -71,8 +71,8 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 100,
         },
-      },
-      car: {
+      }),
+      car: new Schema({
         baseFare: {
           type: Number,
           required: true,
@@ -98,8 +98,8 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 100,
         },
-      },
-      miniVan: {
+      }),
+      miniVan: new Schema({
         baseFare: {
           type: Number,
           required: true,
@@ -125,8 +125,8 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 100,
         },
-      },
-      van: {
+      }),
+      van: new Schema({
         baseFare: {
           type: Number,
           required: true,
@@ -152,8 +152,8 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 200,
         },
-      },
-      mediumTruck: {
+      }),
+      mediumTruck: new Schema({
         baseFare: {
           type: Number,
           required: true,
@@ -179,9 +179,9 @@ const RatesSchema = new Schema<IAdmin>({
           required: true,
           default: 500,
         },
-      },
-    },
-  },
+      }),
+    }),
+  }),
 });
 
 export default model<IAdmin>("Cargo-Dealer-Admin", RatesSchema);

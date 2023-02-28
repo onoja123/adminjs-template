@@ -1,6 +1,8 @@
 import { Schema, model, Document } from "mongoose";
 import { v4 } from "uuid";
 
+export const vehicleTypes = ["bike", "car", "miniVan", "van", "mediumTruck"];
+
 export interface IUser extends Document {
   firstname: string;
   lastname: string;
@@ -11,16 +13,20 @@ export interface IUser extends Document {
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   isAllowedToRide: boolean;
-  accountType: {
+  account: {
     type: string;
     isDealer: boolean;
   };
-  country: string;
+  country: {
+    name: string;
+    code: string;
+  };
   isOnline: boolean;
-  vehicleType: string;
+  vehicle: string;
   isVerifed: boolean;
   kycStatus: string;
   createdAt: Date;
+  isIdentityVerified: boolean;
   otpSendCount: number;
   otpInputCount: number;
   pauseOtpSend: boolean;
@@ -29,6 +35,7 @@ export interface IUser extends Document {
   pauseOtpInputUntil: Date;
   walletBalance: number;
   isDriverTypeSelected: boolean;
+
   pin: string;
   avatar: {
     url: string;
@@ -47,12 +54,6 @@ export interface IUser extends Document {
   };
 }
 
-// enum accountType {
-//   admin = "admin",
-//   user = "user",
-//   business = "business",
-// }
-
 enum kycStatus {
   pending = "pending",
   approved = "approved",
@@ -60,13 +61,16 @@ enum kycStatus {
 }
 
 const User = new Schema<IUser>({
-  avatar: {
-    type: Object,
-    default: {
-      url: "",
-      publicId: "",
+  avatar: new Schema({
+    url: {
+      type: String,
+      default: "",
     },
-  },
+    publicId: {
+      type: String,
+      default: "",
+    },
+  }),
   isOnline: {
     type: Boolean,
     default: true,
@@ -83,22 +87,33 @@ const User = new Schema<IUser>({
     type: String,
     default: "",
   },
+  isIdentityVerified: {
+    type: Boolean,
+    default: false,
+  },
   uid: {
     type: String,
     required: true,
     default: v4(),
     unique: true,
   },
-  country: {
-    type: String,
-    default: "",
-  },
+  country: new Schema({
+    name: {
+      type: String,
+      default: "",
+    },
+    code: {
+      type: String,
+      default: "",
+    },
+  }),
   email: {
     type: String,
   },
-  vehicleType: {
+  vehicle: {
     type: String,
     default: "",
+    enum: vehicleTypes,
   },
   password: {},
   phoneNumber: {
@@ -121,13 +136,17 @@ const User = new Schema<IUser>({
     type: Boolean,
     default: false,
   },
-  accountType: {
-    type: Object,
-    default: {
-      type: "user",
-      isDealer: false,
+  account: new Schema({
+    type: {
+      type: String,
+      default: "user",
     },
-  },
+    isDealer: {
+      type: Boolean,
+      default: false,
+    },
+  }),
+
   kycStatus: {
     type: String,
     enum: Object.values(kycStatus),
@@ -169,25 +188,30 @@ const User = new Schema<IUser>({
     type: Boolean,
     default: false,
   },
-  defaultAddress: {
-    type: Object,
-    default: {
-      address: "",
-      placeId: "",
-      lat: 0,
-      lng: 0,
+  defaultAddress: new Schema({
+    address: {
+      type: String,
+      default: "",
     },
-  },
+    placeId: {
+      type: String,
+      default: "",
+    },
+    lat: {
+      type: Number,
+      default: 0,
+    },
+    lng: {
+      type: Number,
+      default: 0,
+    },
+  }),
+
   key: {
     type: String,
     default: v4(),
   },
   location: {
-    // type: Object,
-    // default: {
-    //   type: "Point",
-    //   // coordinates: [0, 0],
-    // },
     type: {
       type: String,
       default: "Point",
