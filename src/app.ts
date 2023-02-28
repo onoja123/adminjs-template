@@ -2,6 +2,7 @@ import { parse } from "./../node_modules/@types/uuid/index.d";
 import AdminJS from "adminjs";
 import mongoose from "mongoose";
 import Admin from "./models/admin.model";
+import AdminCred from "./models/admin-cred";
 import Deposit from "./models/deposit.model";
 import FCMToken from "./models/firebase.model";
 import Otps from "./models/otp.model";
@@ -36,7 +37,7 @@ const PORT = 3000;
 // }
 
 const authenticate = async (email: string, password: string) => {
-  const user = await Admin.findOne({ email });
+  const user = await AdminCred.findOne({ email });
 
   if (!user) {
     throw new Error("Invalid email or password");
@@ -68,6 +69,7 @@ const start = async () => {
       Users,
       Vehicles,
       Verification,
+      AdminCred
     ],
   };
 
