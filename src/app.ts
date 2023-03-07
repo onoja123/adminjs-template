@@ -1,8 +1,7 @@
 import AdminJS from "adminjs";
 import mongoose from "mongoose";
-import Chat from "./models/chat.model";
-import Message from "./models/message.model";
-import User from "./models/user.model";
+// import index from "./models/index"
+
 
 import * as AdminJSMongoose from "@adminjs/mongoose";
 import AdminJSExpress from "@adminjs/express";
@@ -50,14 +49,12 @@ const start = async () => {
   const app = express();
 
   await mongoose.connect(
-    "mongodb+srv://franca:Gabriella12@cluster0.531ojj9.mongodb.net/?retryWrites=true&w=majority"
+    " "
   );
 
   const adminOptions = {
     resources: [
-      Chat,
-      Message,
-      User
+  //  index
     ],
   };
 
